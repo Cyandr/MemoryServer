@@ -12,7 +12,15 @@
         <dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>apache-jena-libs</artifactId>
+            <type>pom</type>
             <version>3.10.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.2</version>
         </dependency>
     </dependencies>
     <build>
@@ -25,6 +33,7 @@
                     <target>1.8</target>
                     <encoding>utf-8</encoding>
                 </configuration>
+                <version>3.8.0</version>
             </plugin>
         </plugins>
     </build>

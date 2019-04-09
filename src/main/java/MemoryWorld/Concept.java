@@ -1,4 +1,5 @@
 package MemoryWorld;
 
-public class Concept {
+public abstract class Concept  extends BaseModel
+{
 }
