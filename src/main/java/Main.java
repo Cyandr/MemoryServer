@@ -27,7 +27,7 @@ public class Main {
 
 
         // Make a TDB-backed dataset
-        String directory = "MyDatabases/Dataset1";
+        String directory = "MyDatabases/Dataset1/";
         makeDir(directory);
 
 
@@ -40,16 +40,7 @@ public class Main {
 
 
 
-      /*  model = dataset.getDefaultModel();
-        Resource yxh = model.createResource(BaseURI);
-        yxh.addProperty(VCARD.FN, fullName);
-        yxh.addProperty(VCARD.Given, "Li");
-        yxh.addProperty(VCARD.NAME, "Xing");
-        yxh.addProperty(VCARD.Country, "China");
-        yxh.addProperty(VCARD.EMAIL, "LiXing@qq.com");
-        Property property=model.createProperty(BaseURI,"spent-to");
-        model.add(yxh,property,"lixing");
-        */
+
 
         dataset.begin(ReadWrite.WRITE);
 
@@ -69,6 +60,12 @@ public class Main {
             System.out.println(resIterator.next().toString());
 
         }
+        //我在清华大学食堂花了多少钱
+
+
+        Query queryHowmuchCostinTsinghua = QueryFactory.create("SELECT ?x\n" +
+                "WHERE { ?x  rdf:type  }");
+
 
         Query query = QueryFactory.create("SELECT ?x\n" +
                 "WHERE { ?x  <http://www.w3.org/2001/vcard-rdf/3.0#FN>  \"Xinhui Yan2\" }");
@@ -117,11 +114,15 @@ public class Main {
         File file = new File(dirPath);
         if (!file.exists()) {
             try {
-                if (dirPath.contains("."))
-                    file.createNewFile();
-                else
-                    file.mkdir();
-            } catch (IOException e) {
+                if (dirPath.contains(".")) {
+                    if (!file.createNewFile())
+                        throw new IOException("can not create file");
+                }
+                else {
+                    if (!file.mkdirs())
+                        throw new IOException("can not create dirs");
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

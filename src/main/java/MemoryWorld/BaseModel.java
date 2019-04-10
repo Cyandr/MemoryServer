@@ -1,19 +1,25 @@
 package MemoryWorld;
 
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntResource;
 
 public abstract class BaseModel {
 
-    public static String BaseURL = "http://com.cyandr.robot//OntActivity";
+    public static String BaseURL = "http://com.cyandr.robot//";
 
 
-    public abstract Resource ToResource(Model model);
+    public abstract OntResource ToResource(OntModel model);
 
-    public   String GetURL()
-    {
-      String className=  this.getClass().getName();
-        return BaseURL+"."+className;
+    public String GetURL() {
+        String className = this.getClass().getName();
+        return BaseURL + "." + className;
+    }
+
+    public OntClass RegisterClass(OntModel model) {
+
+        String className = this.getClass().getName();
+        return model.createClass(BaseURL + className);
     }
 
     @Override

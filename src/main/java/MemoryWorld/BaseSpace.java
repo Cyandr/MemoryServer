@@ -1,8 +1,8 @@
 package MemoryWorld;
 
 
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntResource;
 
 public class BaseSpace extends BaseModel
 {
@@ -14,7 +14,7 @@ public class BaseSpace extends BaseModel
 
 
     @Override
-    public Resource ToResource(Model model) {
+    public OntResource ToResource(OntModel model) {
         return null;
     }
 }

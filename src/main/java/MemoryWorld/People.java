@@ -1,11 +1,9 @@
 package MemoryWorld;
 
 
-import com.sun.istack.internal.NotNull;
-import com.sun.org.apache.bcel.internal.generic.GETFIELD;
-import org.apache.jena.rdf.model.Model;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.vocabulary.VCARD;
 
 import java.util.HashMap;
 
@@ -22,7 +20,7 @@ public class People extends BaseModel {
     GENDER gender;
 
     @Override
-    public Resource ToResource(Model model) {
+    public OntResource ToResource(OntModel model) {
 
         Resource resource = model.createResource(NetBase.getSubNodeURL(People.class))
                 .addProperty(model.createProperty(GetURL() + "#Name"), Name)

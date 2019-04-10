@@ -1,6 +1,7 @@
 package MemoryWorld;
 
-import org.apache.jena.rdf.model.Model;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
 
 public class MemoryObject  extends BaseModel
@@ -12,7 +13,7 @@ public class MemoryObject  extends BaseModel
     float Energy=20;
 
     @Override
-    public Resource ToResource(Model model) {
+    public OntResource ToResource(OntModel model) {
         Resource resource = model.createResource(NetBase.getSubNodeURL(MemoryObject.class))
                 .addProperty(model.createProperty(GetURL() + "#Name"), Name)
                 .addLiteral(model.createProperty(GetURL() + "#Mass"), Mass)

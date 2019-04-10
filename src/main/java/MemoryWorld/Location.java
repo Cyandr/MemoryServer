@@ -1,7 +1,8 @@
 package MemoryWorld;
 
 
-import org.apache.jena.rdf.model.Model;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
 
 //位置
@@ -15,7 +16,7 @@ public class Location extends BaseModel
     }
 
     @Override
-    public Resource ToResource(Model model) {
+    public OntResource ToResource(OntModel model) {
 
         Resource resource = model.createResource(NetBase.getSubNodeURL(Location.class))
                 .addProperty(model.createProperty(GetURL() + "#Location"), Location)
