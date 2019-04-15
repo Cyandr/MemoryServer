@@ -16,9 +16,6 @@ import static MemoryWorld.NetBase.*;
 public class ConsumeActivity extends OntActivity {
 
 
-
-
-
     People Who;
     Movement CostOrMake;
     Currency HowMuch;
@@ -37,10 +34,10 @@ public class ConsumeActivity extends OntActivity {
 
     }
 
-    HashMap<String, ObjectProperty> RELS = new HashMap<>();
+   private static  HashMap<String, ObjectProperty> RELS = new HashMap<>();
 
-    void initRels(OntModel model) {
-
+    public static void initRels(OntModel model) {
+        if (RELS.size() != 0) return;
         String strCLss = getClassURL(ConsumeActivity.class);
         RELS.put("who", model.createObjectProperty(strCLss + ".who"));
         RELS.put("movement", model.createObjectProperty(strCLss + ".movement"));
@@ -54,11 +51,13 @@ public class ConsumeActivity extends OntActivity {
     }
 
 
-    public OntModel generateRdfModel() {
+    public OntModel generateRdfModel(OntModel model) {
 
         try {
-            OntModel model = ModelFactory.createOntologyModel();
-            initRels(model);
+
+
+
+
             OntClass consumeClass = model.createClass(getClassURL(ConsumeActivity.class));
             // create the resource
             Individual instance = model.createIndividual(getModelURL(ConsumeActivity.class), consumeClass);

@@ -4,7 +4,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 
 public class NetBase {
-    private static String ProjectURL = "http://https://github.com/Cyandr/MemoryServer/";
+    private static String ProjectURL = "https://github.com/Cyandr/MemoryServer/";
     private static String BaseURI = ProjectURL;
 
 

@@ -1,10 +1,12 @@
 import MemoryWorld.*;
 import OntActivity.ConsumeActivity;
+import OntActivity.OntActivity;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import org.apache.jena.base.Sys;
+import org.apache.jena.ontology.OntModel;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.sparql.core.Var;
@@ -34,44 +36,48 @@ public class Main {
         Dataset dataset = TDBFactory.createDataset(directory);
 
 
-        ConsumeActivity consumeActivity = new ConsumeActivity(new People(), new Movement(), new Currency(), new Location(), new Time(), new MemoryObject());
+        // ConsumeActivity consumeActivity = new ConsumeActivity(new People(), new Movement(), new Currency(), new Location(), new Time(), new MemoryObject());
+        List<ConsumeActivity> activities = OntActivity.bornData();
 
-        Model model = consumeActivity.generateRdfModel();
-
-
-
-      /*  model = dataset.getDefaultModel();
-        Resource yxh = model.createResource(BaseURI);
-        yxh.addProperty(VCARD.FN, fullName);
-        yxh.addProperty(VCARD.Given, "Li");
-        yxh.addProperty(VCARD.NAME, "Xing");
-        yxh.addProperty(VCARD.Country, "China");
-        yxh.addProperty(VCARD.EMAIL, "LiXing@qq.com");
-        Property property=model.createProperty(BaseURI,"spent-to");
-        model.add(yxh,property,"lixing");
-        */
-
-        dataset.begin(ReadWrite.WRITE);
-
-        dataset.addNamedModel("http://cyandr.test.com.mymemory", model);
+        OntModel ontmodel = ModelFactory.createOntologyModel();
+        ConsumeActivity.initRels(ontmodel);
+        dataset.begin(ReadWrite.WRITE);int i=0;
+        for (ConsumeActivity consumeActivity : activities) {
+              consumeActivity.generateRdfModel(ontmodel);
+        }
+        dataset.addNamedModel("http://cyandr.test.com.mymemory", ontmodel);
         dataset.commit();
         dataset.end();
 
 
         dataset.begin(ReadWrite.READ);
         // Get model inside the transaction
-        model = dataset.getNamedModel("http://cyandr.test.com.mymemory");
-        ResIterator resIterator= model.listSubjects();
-        while (resIterator.hasNext())
-        {
+        Model model = dataset.getNamedModel("http://cyandr.test.com.mymemory");
+        StmtIterator resIterator = model.listStatements();
+
+        while (resIterator.hasNext()) {
 
 
             System.out.println(resIterator.next().toString());
 
         }
 
-        Query query = QueryFactory.create("SELECT ?x\n" +
-                "WHERE { ?x  <http://www.w3.org/2001/vcard-rdf/3.0#FN>  \"Xinhui Yan2\" }");
+        System.out.println("query test begins");
+        //我三月份在北京花了多少元人民币？
+        Query query = QueryFactory.create("SELECT ?acts ?yuan " +
+                "WHERE { " +
+                "?peple  <http://com.cyandr.robot//OntActivity.MemoryWorld.People#Name>  \"Anod 05th\" ." +
+                "?acts <https://github.com/Cyandr/MemoryServer/OntActivity.ConsumeActivity.who> ?peple ." +
+                "?time <http://com.cyandr.robot//OntActivity.MemoryWorld.Time#Date> \"3\" ." +
+                "?acts <https://github.com/Cyandr/MemoryServer/OntActivity.ConsumeActivity.when>  ?time ." +
+                "?place <http://com.cyandr.robot//OntActivity.MemoryWorld.Location#Location>  \"北京\" ." +
+                "?acts <https://github.com/Cyandr/MemoryServer/OntActivity.ConsumeActivity.where>  ?place ." +
+                "?spent <http://com.cyandr.robot//OntActivity.MemoryWorld.Movement#Name> \"Spent\" ." +
+                "?acts <https://github.com/Cyandr/MemoryServer/OntActivity.ConsumeActivity.movement>  ?spent ." +
+                "?money <http://com.cyandr.robot//OntActivity.MemoryWorld.Currency#currencyType> \"YUAN\" ." +
+                "?acts <https://github.com/Cyandr/MemoryServer/OntActivity.ConsumeActivity.howmuch> ?money ." +
+                "?money <http://com.cyandr.robot//OntActivity.MemoryWorld.Currency#Value> ?yuan ." +
+                "}");
         QueryExecution queryExecution = QueryExecutionFactory.create(query, model);
 
         ResultSet results = queryExecution.execSelect();
@@ -82,16 +88,14 @@ public class Main {
 
             for (Var v : vars) {
                 RDFNode thing = row.get(v.getName());// 结果例如 ( ?X =
-                System.out.println(v.getName() + "---" + thing.toString());
+                String valuestr = thing.toString();
+                if (valuestr.contains("^^"))
+                    valuestr = valuestr.substring(0, valuestr.indexOf("^^"));
+                System.out.println(v.getName() + "---" + valuestr.toString());
             }
         }
         queryExecution.close();
-        Iterator<String> srts = dataset.listNames();
-        while (srts.hasNext()) {
 
-            System.out.println(srts.next());
-
-        }
         dataset.end();
 
     }

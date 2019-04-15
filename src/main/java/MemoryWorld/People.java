@@ -18,8 +18,13 @@ public class People extends BaseModel {
         Height = 170;
         Weight = 62;
     }
-
-    GENDER gender;
+    public People(String name,GENDER gender,float height,float weight) {
+        Name = name;
+        gender = gender;
+        Height = height;
+        Weight = weight;
+    }
+    GENDER gender=GENDER.FEMALE;
 
     @Override
     public Resource ToResource(Model model) {
@@ -37,7 +42,7 @@ public class People extends BaseModel {
     }
 
 
-    enum GENDER {
+    public enum GENDER {
         FEMALE,
         MALE
     }

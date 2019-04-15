@@ -5,12 +5,15 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 
 //位置
-public class Location extends BaseModel
-{
+public class Location extends BaseModel {
 
-    public Location()
-    {
+    public Location() {
 
+
+    }
+
+    public Location(String City) {
+        Location = City;
 
     }
 
@@ -27,16 +30,15 @@ public class Location extends BaseModel
         return resource;
     }
 
-    enum INSIDE_OR_OUTSIDE
-    {
+    enum INSIDE_OR_OUTSIDE {
         INSIDE,
         OUTSIDE
 
     }
 
-    float Latitude=10;
-    float Longtitude=4;
-    String Location="北京市";
-    INSIDE_OR_OUTSIDE outer=INSIDE_OR_OUTSIDE.INSIDE;
+    float Latitude = 10;
+    float Longtitude = 4;
+    String Location = "北京市";
+    INSIDE_OR_OUTSIDE outer = INSIDE_OR_OUTSIDE.INSIDE;
 
 }

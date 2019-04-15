@@ -52,7 +52,8 @@ public class Main {
             String string = sb.toString();
             //HttpAuthenticator authenticator = new SimpleAuthenticator("user", "password".toCharArray());
             QueryExecution queryExecution= QueryExecutionFactory.sparqlService("http://127.0.0.1:19092/fuseki/ConsumeTest",
-                    "SELECT ?x ?c WHERE { ?x  <http://www.w3.org/2001/vcard-rdf/3.0#FN>  \"Xinhui Yan2\". ?x <http://www.w3.org/2001/vcard-rdf/3.0#Country> ?c. }","");
+                    "SELECT ?x ?c WHERE { ?x  <http://www.w3.org/2001/vcard-rdf/3.0#FN>  \"Xinhui Yan2\". " +
+                            "?x <http://www.w3.org/2001/vcard-rdf/3.0#Country> ?c. }","");
 
 
 

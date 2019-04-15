@@ -14,7 +14,12 @@ public class Currency extends BaseModel
         Value=1.0f;
         currencyType=CurrencyType.YUAN;
     }
+    public Currency(float value,CurrencyType type)
+    {
 
+        Value=value;
+        currencyType=type;
+    }
     @Override
     public Resource ToResource(Model model) {
         Resource resource = model.createResource(NetBase.getSubNodeURL(Currency.class))
@@ -26,7 +31,7 @@ public class Currency extends BaseModel
         return resource;
     }
 
-    enum CurrencyType
+    public enum CurrencyType
     {
         YUAN,
         DOLLAR,

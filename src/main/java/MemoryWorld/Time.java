@@ -4,15 +4,19 @@ package MemoryWorld;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 public class Time extends BaseModel {
     public Time()
     {
-        m_date=new Date();
+        m_date="";
     }
-
-    Date m_date;
+    public Time(String date)
+    {
+        m_date= date;
+    }
+    String m_date;
 
     @Override
     public Resource ToResource(Model model) {

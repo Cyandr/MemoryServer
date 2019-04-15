@@ -13,7 +13,11 @@ public class Movement extends Concept
     }
 
     String Name;
+    public Movement(String mov)
+    {
 
+        Name=mov;
+    }
 
     @Override
     public Resource ToResource(Model model) {

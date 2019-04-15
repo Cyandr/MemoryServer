@@ -11,6 +11,8 @@ public class MemoryObject  extends BaseModel
     float Volume=1000;
     float Energy=20;
 
+
+
     @Override
     public Resource ToResource(Model model) {
         Resource resource = model.createResource(NetBase.getSubNodeURL(MemoryObject.class))
