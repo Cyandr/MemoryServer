@@ -1,11 +1,8 @@
 package MemoryWorld;
 
 
-import com.sun.istack.internal.NotNull;
-import com.sun.org.apache.bcel.internal.generic.GETFIELD;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.vocabulary.VCARD;
 
 import java.util.HashMap;
 

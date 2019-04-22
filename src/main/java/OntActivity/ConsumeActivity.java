@@ -55,9 +55,6 @@ public class ConsumeActivity extends OntActivity {
 
         try {
 
-
-
-
             OntClass consumeClass = model.createClass(getClassURL(ConsumeActivity.class));
             // create the resource
             Individual instance = model.createIndividual(getModelURL(ConsumeActivity.class), consumeClass);

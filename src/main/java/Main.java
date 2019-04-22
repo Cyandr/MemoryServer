@@ -1,17 +1,16 @@
-import MemoryWorld.*;
+import JcSegEngine.JcSegTest;
 import OntActivity.ConsumeActivity;
 import OntActivity.OntActivity;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import org.apache.jena.base.Sys;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.tdb.TDBFactory;
-import org.apache.jena.vocabulary.VCARD;
+import org.lionsoul.jcseg.tokenizer.core.JcsegException;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,47 +19,58 @@ import java.net.InetSocketAddress;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
 
-    public static void main(String[] args) {
 
+    static String directory = "MyDatabases/Dataset1";
+    public static  void InitConsumeActvity()
+    {
 
         // Make a TDB-backed dataset
-        String directory = "MyDatabases/Dataset1";
+
         makeDir(directory);
-
-
         Dataset dataset = TDBFactory.createDataset(directory);
 
-
-        // ConsumeActivity consumeActivity = new ConsumeActivity(new People(), new Movement(), new Currency(), new Location(), new Time(), new MemoryObject());
         List<ConsumeActivity> activities = OntActivity.bornData();
-
         OntModel ontmodel = ModelFactory.createOntologyModel();
         ConsumeActivity.initRels(ontmodel);
         dataset.begin(ReadWrite.WRITE);int i=0;
         for (ConsumeActivity consumeActivity : activities) {
-              consumeActivity.generateRdfModel(ontmodel);
+            consumeActivity.generateRdfModel(ontmodel);
         }
         dataset.addNamedModel("http://cyandr.test.com.mymemory", ontmodel);
         dataset.commit();
         dataset.end();
 
+    }
+    public static void main(String[] args) {
+
+
+
+
+
+
+
+
+        // ConsumeActivity consumeActivity = new ConsumeActivity(new People(), new Movement(), new Currency(), new Location(), new Time(), new MemoryObject());
+
+
+
+        Dataset dataset = TDBFactory.createDataset(directory);
 
         dataset.begin(ReadWrite.READ);
         // Get model inside the transaction
         Model model = dataset.getNamedModel("http://cyandr.test.com.mymemory");
-        StmtIterator resIterator = model.listStatements();
+        //StmtIterator resIterator = model.listStatements();
 
-        while (resIterator.hasNext()) {
+       // while (resIterator.hasNext()) {
 
 
-            System.out.println(resIterator.next().toString());
+        //    System.out.println(resIterator.next().toString());
 
-        }
+       // }
 
         System.out.println("query test begins");
         //我三月份在北京花了多少元人民币？
@@ -98,6 +108,13 @@ public class Main {
 
         dataset.end();
 
+
+        try {
+            JcSegTest.init();
+            JcSegTest.test("我在三月在北京花费多少人民币？");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void setServer() {
