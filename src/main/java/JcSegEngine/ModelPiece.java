@@ -14,7 +14,8 @@ public enum ModelPiece {
     Infuence(128);
     private int FLAG;
     private  int Value;
-    private ModelPiece(int n) {
+    private ModelPiece(int n)
+    {
         FLAG = n;
 
     }
@@ -22,7 +23,8 @@ public enum ModelPiece {
     {
         return FLAG;
     }
-    public int Value() {
+    public int Value()
+    {
         return Value;
     }
     public void SetValue(int n)
@@ -31,9 +33,8 @@ public enum ModelPiece {
 
     }
 
-    ModelPiece sortFromWordType(WordType type)
+    ModelPiece sortFromWordType(Word]]=`72z` type)
     {
-
         HashSet<WordType> TimeContainer=new HashSet<>();
         TimeContainer.add(WordType.T);
         return People;

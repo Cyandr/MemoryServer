@@ -14,7 +14,7 @@ public class StruLag {
         }
 
     }
-
+//282
      static public   WordType findType(String strPara)
     {
 

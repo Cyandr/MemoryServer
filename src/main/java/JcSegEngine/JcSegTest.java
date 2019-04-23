@@ -3,7 +3,6 @@ package JcSegEngine;
 import org.apache.jena.base.Sys;
 import org.apache.lucene.analysis.Analyzer;
 import org.lionsoul.jcseg.analyzer.JcsegAnalyzer;
-import org.lionsoul.jcseg.tokenizer.Word;
 import org.lionsoul.jcseg.tokenizer.core.*;
 
 import java.io.*;
@@ -104,9 +103,9 @@ public class JcSegTest {
 
     static ISegment IMain_seg;
 
-    public static HashMap<WordType, String> test(String str) throws Exception {
+    public static HashMap<WordType, Word> test(String str) throws Exception {
 
-        HashMap<WordType, String> returnMap = new HashMap<>();
+        HashMap<WordType, Word> returnMap = new HashMap<>();
         //设置要分词的内容
         //String str = "小明昨天中午在上海合作组织啊啊吃米饭花费了多少元钱？";
         IMain_seg.reset(new StringReader(str));
@@ -119,7 +118,7 @@ public class JcSegTest {
             WordType wordType = StruLag.findType(key.toUpperCase());
             if (wordType==null)wordType=WordType.UNKOWN;
 
-            returnMap.put(wordType, word.getValue());
+            returnMap.put(wordType, new Word(word));
             System.out.println(wordType.toString()+"___"+word.getValue());
             System.out.println( word.toString());
         }

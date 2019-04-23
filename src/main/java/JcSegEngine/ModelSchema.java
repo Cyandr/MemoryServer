@@ -5,7 +5,7 @@ public class ModelSchema {
 
      long Description;
 
-    int ConsumeModelLex=ModelPiece.People.Flag() &
+    int ConsumeLexModel=ModelPiece.People.Flag() &
                         ModelPiece.Time.Flag() &
                         ModelPiece.Location.Flag() &
                         ModelPiece.Activity.Flag() &
@@ -15,7 +15,7 @@ public class ModelSchema {
     ModelSchema(int n)
     {
 
-
+        Description=n;
     }
 
 }

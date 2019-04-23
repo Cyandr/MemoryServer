@@ -9,6 +9,9 @@ import java.util.Set;
 
 public class SparqlGenerator {
 
+
+
+
     Query GenerateSparql(HashMap<WordType, String> words) {
         Set<WordType> wordSet = words.keySet();
 

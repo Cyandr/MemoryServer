@@ -1,18 +1,21 @@
 package JcSegEngine;
 
+import org.lionsoul.jcseg.tokenizer.core.IWord;
+
 public class Word {
 
     String Word;
     int Type;
     int Position;
     String Pinyin;
-    char[] pos;
+    String pos;
     String Entity;
     String Root;
     String Parameter;
 
+    WordType WordType;
 
-    public Word(String word, int type, int position, String pinyin, char[] pos, String entity, String root, String parameter) {
+    public Word(String word, int type, int position, String pinyin, String pos, String entity, String root, String parameter) {
         Word = word;
         Type = type;
         Position = position;
@@ -21,11 +24,27 @@ public class Word {
         Entity = entity;
         Root = root;
         Parameter = parameter;
+        WordType = StruLag.findType( this.pos.toUpperCase());
+        if (WordType==null)WordType=WordType.UNKOWN;
     }
 
-    public Word(String word, char[] pos) {
-        Word = word;
-        this.pos = pos;
+
+
+    public  Word(IWord iWord)
+    {
+
+        Word = iWord.getValue();
+        Type = iWord.getType();
+        Position = iWord.getPosition();
+        Pinyin = iWord.getPinyin();
+        this.pos = iWord.getPartSpeech()[0];
+        Entity = iWord.getEntity()[0];
+        Root = null;
+        Parameter = iWord.getParameter();
+        WordType = StruLag.findType( this.pos.toUpperCase());
+        if (WordType==null)WordType=WordType.UNKOWN;
+
+
     }
 
 }
