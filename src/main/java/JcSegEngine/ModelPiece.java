@@ -33,8 +33,16 @@ public enum ModelPiece {
 
     }
 
-    ModelPiece sortFromWordType(Word]]=`72z` type)
+    ModelPiece sortFromWordType(Word word)
     {
+
+        switch (word.WordType)
+        {
+
+            case R:
+                return People;
+
+        }
         HashSet<WordType> TimeContainer=new HashSet<>();
         TimeContainer.add(WordType.T);
         return People;

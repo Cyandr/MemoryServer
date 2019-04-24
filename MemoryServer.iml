@@ -39,6 +39,9 @@
     <orderEntry type="library" name="Maven: org.apache.jena:jena-dboe-index:3.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.jena:jena-rdfconnection:3.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver:3.4.1" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:3.4.1" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:bson:3.4.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-nop:1.7.2" level="project" />
     <orderEntry type="library" name="Maven: org.lionsoul:jcseg-core:2.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.lionsoul:jcseg-analyzer:2.4.0" level="project" />

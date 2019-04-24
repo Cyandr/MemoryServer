@@ -37,8 +37,9 @@ public class Word {
         Type = iWord.getType();
         Position = iWord.getPosition();
         Pinyin = iWord.getPinyin();
-        this.pos = iWord.getPartSpeech()[0];
-        Entity = iWord.getEntity()[0];
+
+        pos=iWord.getPartSpeech()==null?"":iWord.getPartSpeech()[0];
+        Entity =iWord.getEntity()==null?"": iWord.getEntity(0);
         Root = null;
         Parameter = iWord.getParameter();
         WordType = StruLag.findType( this.pos.toUpperCase());
