@@ -5,12 +5,12 @@ public class ModelSchema {
 
      long Description;
 
-    int ConsumeLexModel=ModelPiece.People.Flag() &
-                        ModelPiece.Time.Flag() &
-                        ModelPiece.Location.Flag() &
-                        ModelPiece.Activity.Flag() &
-                        ModelPiece.Cost.Flag() &
-                        ModelPiece.RelatedObjects.Flag();
+  static   int ConsumeLexModel= PieceType.People.Flag() &
+                        PieceType.Time.Flag() &
+                        PieceType.Location.Flag() &
+                        PieceType.Activity.Flag() &
+                        PieceType.Cost.Flag() &
+                        PieceType.RelatedObjects.Flag();
 
     ModelSchema(int n)
     {

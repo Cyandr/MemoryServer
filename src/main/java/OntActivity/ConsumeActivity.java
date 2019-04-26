@@ -1,5 +1,6 @@
 package OntActivity;
 
+import JcSegEngine.PieceType;
 import MemoryWorld.*;
 import MemoryWorld.MemoryObject;
 
@@ -31,10 +32,17 @@ public class ConsumeActivity extends OntActivity {
         Where = location;
         When = time;
         What = what;
-
+        if (Type_RELS.size() > 0) return;
+        Type_RELS.put(PieceType.People, "who");
+        Type_RELS.put(PieceType.Activity, "movement");
+        Type_RELS.put(PieceType.Cost, "howmuch");
+        Type_RELS.put(PieceType.Location, "where");
+        Type_RELS.put(PieceType.Time, "when");
+        Type_RELS.put(PieceType.RelatedObjects, "object");
     }
 
-   private static  HashMap<String, ObjectProperty> RELS = new HashMap<>();
+    private static HashMap<String, ObjectProperty> RELS = new HashMap<>();
+    public static HashMap<PieceType, String> Type_RELS = new HashMap<>();
 
     public static void initRels(OntModel model) {
         if (RELS.size() != 0) return;

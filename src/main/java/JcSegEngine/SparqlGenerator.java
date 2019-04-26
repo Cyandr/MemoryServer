@@ -3,12 +3,29 @@ package JcSegEngine;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class SparqlGenerator {
 
+
+    Query GenerateSparql(List<Word> words) {
+
+        int index = 0;
+        int Status = 0;
+        for (Word word : words) {
+            PieceType type = PieceType.sortFromWordType(word);
+            Status = type & Status;
+        }
+
+        int result = Status & ModelSchema.ConsumeLexModel;
+        List<PieceType> VarTypes=PieceType.findFromKnownInt(result);
+
+        List<String> Vars=new ArrayList<>();
+        for (PieceType type: VarTypes) {
+            Vars.add("?"+type.toString())
+        }
+
+    }
 
 
 
@@ -17,7 +34,7 @@ public class SparqlGenerator {
 
 
         //谁 什么时间 什么地点  动作  物体  耗费
-        for (WordType wordType:wordSet) {
+        for (WordType wordType : wordSet) {
 
 
         }
@@ -39,7 +56,7 @@ public class SparqlGenerator {
           I___了
           A___个
           NZ___媳妇儿*/
-        Query query =   QueryFactory.create("SELECT ?acts ?yuan " +
+        Query query = QueryFactory.create("SELECT ?acts ?yuan SELECT ?acts ?yuan " +
                 "WHERE { " +
                 "?peple  <http://com.cyandr.robot//OntActivity.MemoryWorld.People#Name>  \"Anod 05th\" ." +
                 "?acts <https://github.com/Cyandr/MemoryServer/OntActivity.ConsumeActivity.who> ?peple ." +
