@@ -1,4 +1,7 @@
 import JcSegEngine.JcSegTest;
+import JcSegEngine.SparqlGenerator;
+import JcSegEngine.Word;
+import JcSegEngine.WordType;
 import OntActivity.ConsumeActivity;
 import OntActivity.OntActivity;
 import com.mongodb.MongoClient;
@@ -25,18 +28,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.Executors;
 
 public class Main {
 
 
     static String directory = "MyDatabases/Dataset1";
-    public static  void InitConsumeActvity()
-    {
+
+    public static void InitConsumeActvity() {
 
         // Make a TDB-backed dataset
 
@@ -46,7 +46,8 @@ public class Main {
         List<ConsumeActivity> activities = OntActivity.bornData();
         OntModel ontmodel = ModelFactory.createOntologyModel();
         ConsumeActivity.initRels(ontmodel);
-        dataset.begin(ReadWrite.WRITE);int i=0;
+        dataset.begin(ReadWrite.WRITE);
+        int i = 0;
         for (ConsumeActivity consumeActivity : activities) {
             consumeActivity.generateRdfModel(ontmodel);
         }
@@ -55,17 +56,11 @@ public class Main {
         dataset.end();
 
     }
+
     public static void main(String[] args) {
 
 
-
-
-
-
-
-
         // ConsumeActivity consumeActivity = new ConsumeActivity(new People(), new Movement(), new Currency(), new Location(), new Time(), new MemoryObject());
-
 
 
         Dataset dataset = TDBFactory.createDataset(directory);
@@ -75,12 +70,12 @@ public class Main {
         Model model = dataset.getNamedModel("http://cyandr.test.com.mymemory");
         //StmtIterator resIterator = model.listStatements();
 
-       // while (resIterator.hasNext()) {
+        // while (resIterator.hasNext()) {
 
 
         //    System.out.println(resIterator.next().toString());
 
-       // }
+        // }
 
         System.out.println("query test begins");
         //我三月份在北京花了多少元人民币？
@@ -121,7 +116,15 @@ public class Main {
 
         try {
             JcSegTest.init();
-            JcSegTest.test("我在三月在北京花费多少人民币？");
+            HashMap<WordType, Word> stringMap = JcSegTest.SplitOralString("我在三月在北京花费多少人民币？");
+            Collection<Word> words = stringMap.values();
+            List<Word> wordList = new ArrayList<>();
+            for (Word word : words) {
+                wordList.add(word);
+            }
+            SparqlGenerator sparqlGenerator = new SparqlGenerator();
+            Query query2 = sparqlGenerator.GenerateSparql(wordList);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -146,23 +149,23 @@ public class Main {
         }
     }
 
-    public  static  void TestMongoDB()
-    {
-        MongoClient mongoClient= mongoClient("highan911","101.6.95.3:27017","admin","1234",50,50,60,60);
+    public static void TestMongoDB() {
+        MongoClient mongoClient = mongoClient("highan911", "101.6.95.3:27017", "admin", "1234", 50, 50, 60, 60);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("han_ifcmongo");
-        for (String name:mongoDatabase.listCollectionNames()) {
+        for (String name : mongoDatabase.listCollectionNames()) {
             System.out.println(name);
         }
-        MongoCollection<Document> collection= mongoDatabase.getCollection("Versions");
+        MongoCollection<Document> collection = mongoDatabase.getCollection("Versions");
         FindIterable<Document> findIterable = collection.find(collection.getDocumentClass());
         MongoCursor<Document> mongoCursor = findIterable.iterator();
-        while(mongoCursor.hasNext()){
+        while (mongoCursor.hasNext()) {
 
             // System.out.println(mongoCursor.next());
         }
         System.out.println("集合创建成功");
 
     }
+
     public static MongoClient mongoClient(String username, String hostports, String database, String password, int maxConnect, int maxWaitThread, int maxTimeOut, int maxWaitTime) {
         MongoClient mongoClient = null;
 
@@ -181,7 +184,7 @@ public class Main {
                 }
                 hostport = hostport.trim();
 
-                ServerAddress serverAddress = new ServerAddress(hostport.split(":")[0],Integer.valueOf(hostport.split(":")[1]));
+                ServerAddress serverAddress = new ServerAddress(hostport.split(":")[0], Integer.valueOf(hostport.split(":")[1]));
                 addrs.add(serverAddress);
             }
 
@@ -189,7 +192,7 @@ public class Main {
             List<MongoCredential> credentials = new ArrayList<MongoCredential>();
             credentials.add(credential);
 
-            mongoClient = new MongoClient(addrs,credentials, options);
+            mongoClient = new MongoClient(addrs, credentials, options);
 
             System.out.println("【mongodb client】: mongodb客户端创建成功");
         } catch (Exception e) {
@@ -198,6 +201,7 @@ public class Main {
         }
         return mongoClient;
     }
+
     private static void makeDir(String dirPath) {
         File file = new File(dirPath);
         if (!file.exists()) {

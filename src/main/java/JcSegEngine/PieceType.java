@@ -6,7 +6,7 @@ import java.util.List;
 
 public enum PieceType {
 
-    NULL(0),
+
     Time(1),
     Location(2),
     People(4),
@@ -15,8 +15,9 @@ public enum PieceType {
     Cost(32),
     Product(64),
     Infuence(128),
-    ASK(256);
-
+    BE(256),
+    ASK(512),
+    NULL(1024);
 
     private int FLAG;
     private int Value;
@@ -55,31 +56,32 @@ public enum PieceType {
                     return Time;
                 }
             }
+            case ND:
+                return BE;
+            case W:
             case N:
                 if (word.Entity.contains("currency")) {
                     return Cost;
                 }
-            case W:
                 if (word.Word.contains("?")) return ASK;
             default:
                 return NULL;
         }
 
     }
-    static List<PieceType> findFromKnownInt(int value, int modelSchema)
-    {
-        List<PieceType> pieceTypeList=new ArrayList<>();
-        pieceTypeList.add(NULL);
-        if (value==0)return  pieceTypeList;
-        int unkown=value^modelSchema;
-        for (PieceType pieceType:PieceType.values()) {
-            if ((pieceType.Flag()&unkown)==pieceType.Flag())
-            {
+
+    static List<PieceType> findFromKnownInt(int value, int modelSchema) {
+        List<PieceType> pieceTypeList = new ArrayList<>();
+
+        if (value == 0) return pieceTypeList;
+        int unkown = value ^ modelSchema;
+        for (PieceType pieceType : PieceType.values()) {
+            if ((pieceType.Flag() & unkown) == pieceType.Flag()) {
                 pieceTypeList.add(pieceType);
 
             }
         }
-        return  pieceTypeList;
+        return pieceTypeList;
 
     }
 }

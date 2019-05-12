@@ -1,16 +1,9 @@
 package JcSegEngine;
 
-import org.apache.jena.base.Sys;
-import org.apache.lucene.analysis.Analyzer;
-import org.lionsoul.jcseg.analyzer.JcsegAnalyzer;
 import org.lionsoul.jcseg.tokenizer.core.*;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class JcSegTest {
 
@@ -103,7 +96,7 @@ public class JcSegTest {
 
     static ISegment IMain_seg;
 
-    public static HashMap<WordType, Word> test(String str) throws Exception {
+    public static HashMap<WordType, Word> SplitOralString(String str) throws Exception {
 
         HashMap<WordType, Word> returnMap = new HashMap<>();
         //设置要分词的内容

@@ -8,23 +8,24 @@ import java.util.*;
 public class SparqlGenerator {
 
 
-    Query GenerateSparql(List<Word> words) {
+   public Query GenerateSparql(List<Word> words) {
 
         int index = 0;
         int Status = 0;
         for (Word word : words) {
             PieceType type = PieceType.sortFromWordType(word);
-            Status = type & Status;
+            Status = type.Flag() | Status;
         }
 
         int result = Status & ModelSchema.ConsumeLexModel;
-        List<PieceType> VarTypes=PieceType.findFromKnownInt(result);
+        List<PieceType> VarTypes=PieceType.findFromKnownInt(result,ModelSchema.ConsumeLexModel);
 
         List<String> Vars=new ArrayList<>();
         for (PieceType type: VarTypes) {
-            Vars.add("?"+type.toString())
+            Vars.add("?"+type.toString());
         }
 
+        return null;
     }
 
 
