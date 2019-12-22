@@ -24,26 +24,24 @@ public class Word {
         Entity = entity;
         Root = root;
         Parameter = parameter;
-        WordType = StruLag.findType( this.pos.toUpperCase());
-        if (WordType==null)WordType=WordType.UNKOWN;
+        WordType = StruLag.findType(this.pos.toUpperCase());
+        if (WordType == null) WordType = WordType.UNKOWN;
     }
 
 
-
-    public  Word(IWord iWord)
-    {
+    public Word(IWord iWord) {
 
         Word = iWord.getValue();
         Type = iWord.getType();
         Position = iWord.getPosition();
         Pinyin = iWord.getPinyin();
 
-        pos=iWord.getPartSpeech()==null?"":iWord.getPartSpeech()[0];
-        Entity =iWord.getEntity()==null?"": iWord.getEntity(0);
+        pos = iWord.getPartSpeech() == null ? "" : iWord.getPartSpeech()[0];
+        Entity = iWord.getEntity() == null ? "" : iWord.getEntity(0);
         Root = null;
         Parameter = iWord.getParameter();
-        WordType = StruLag.findType( this.pos.toUpperCase());
-        if (WordType==null)WordType=WordType.UNKOWN;
+        WordType = StruLag.findType(this.pos.toUpperCase());
+        if (WordType == null) WordType = WordType.UNKOWN;
 
 
     }

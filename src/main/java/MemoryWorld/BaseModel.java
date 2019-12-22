@@ -1,5 +1,6 @@
 package MemoryWorld;
 
+import JcSegEngine.PieceType;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 
@@ -16,6 +17,7 @@ public abstract class BaseModel {
         return BaseURL+"."+className;
     }
 
+    public abstract PieceType GetPieceType();
     @Override
     public String toString() {
         return BaseURL + ID;

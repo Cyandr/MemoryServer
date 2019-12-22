@@ -39,7 +39,4 @@ public enum WordType {
     NZ,//其他专有名词;
     ND,//在
     UNKOWN;
-
-
-
 }

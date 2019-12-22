@@ -1,5 +1,6 @@
 package MemoryWorld;
 
+import JcSegEngine.PieceType;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 
@@ -23,6 +24,11 @@ public class MemoryObject  extends BaseModel
       ;
 
         return resource;
+    }
+
+    @Override
+    public PieceType GetPieceType() {
+        return PieceType.RelatedObjects;
     }
 
     enum CREATUEORNOT

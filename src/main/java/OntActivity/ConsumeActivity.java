@@ -15,8 +15,6 @@ import java.util.HashMap;
 import static MemoryWorld.NetBase.*;
 
 public class ConsumeActivity extends OntActivity {
-
-
     People Who;
     Movement CostOrMake;
     Currency HowMuch;
@@ -33,12 +31,12 @@ public class ConsumeActivity extends OntActivity {
         When = time;
         What = what;
         if (Type_RELS.size() > 0) return;
-        Type_RELS.put(PieceType.People, "who");
-        Type_RELS.put(PieceType.Activity, "movement");
-        Type_RELS.put(PieceType.Cost, "howmuch");
-        Type_RELS.put(PieceType.Location, "where");
-        Type_RELS.put(PieceType.Time, "when");
-        Type_RELS.put(PieceType.RelatedObjects, "object");
+        Type_RELS.put(PieceType.People, PieceType.People.toString());
+        Type_RELS.put(PieceType.Activity, PieceType.Activity.toString());
+        Type_RELS.put(PieceType.Cost, PieceType.Cost.toString());
+        Type_RELS.put(PieceType.Location, PieceType.Location.toString());
+        Type_RELS.put(PieceType.Time,PieceType.Time.toString());
+        Type_RELS.put(PieceType.RelatedObjects, PieceType.RelatedObjects.toString());
     }
 
     private static HashMap<String, ObjectProperty> RELS = new HashMap<>();
@@ -47,14 +45,14 @@ public class ConsumeActivity extends OntActivity {
     public static void initRels(OntModel model) {
         if (RELS.size() != 0) return;
         String strCLss = getClassURL(ConsumeActivity.class);
-        RELS.put("who", model.createObjectProperty(strCLss + ".who"));
-        RELS.put("movement", model.createObjectProperty(strCLss + ".movement"));
-        RELS.put("howmuch", model.createObjectProperty(strCLss + ".howmuch"));
-        RELS.put("where", model.createObjectProperty(strCLss + ".where"));
+        RELS.put(PieceType.People.toString(), model.createObjectProperty(strCLss + "."+PieceType.People.toString()));
+        RELS.put(PieceType.Activity.toString(), model.createObjectProperty(strCLss + "."+PieceType.Activity.toString()));
+        RELS.put(PieceType.Cost.toString(), model.createObjectProperty(strCLss + "."+PieceType.Cost.toString()));
+        RELS.put(PieceType.Location.toString(), model.createObjectProperty(strCLss + "."+PieceType.Location.toString()));
 
-        RELS.put("when", model.createObjectProperty(strCLss + ".when"));
+        RELS.put(PieceType.Time.toString(), model.createObjectProperty(strCLss + "."+PieceType.Time.toString()));
 
-        RELS.put("object", model.createObjectProperty(strCLss + ".object"));
+        RELS.put(PieceType.RelatedObjects.toString(), model.createObjectProperty(strCLss + "."+PieceType.RelatedObjects.toString()));
 
     }
 
@@ -69,27 +67,27 @@ public class ConsumeActivity extends OntActivity {
 
             Individual instanceWho = model.createIndividual(getSubNodeURL(People.class), Who.ToResource(model));
 
-            model.add(instance, RELS.get("who"), instanceWho);
+            model.add(instance, RELS.get(PieceType.People.toString()), instanceWho);
 
             Individual instanceMove = model.createIndividual(getSubNodeURL(Movement.class), CostOrMake.ToResource(model));
 
-            model.add(instance, RELS.get("movement"), instanceMove);
+            model.add(instance, RELS.get(PieceType.Activity.toString()), instanceMove);
 
             Individual instanceHowmuch = model.createIndividual(getSubNodeURL(Currency.class), HowMuch.ToResource(model));
 
-            model.add(instance, RELS.get("howmuch"), instanceHowmuch);
+            model.add(instance, RELS.get(PieceType.Cost.toString()), instanceHowmuch);
 
             Individual instanceWhere = model.createIndividual(getSubNodeURL(Location.class), Where.ToResource(model));
 
-            model.add(instance, RELS.get("where"), instanceWhere);
+            model.add(instance, RELS.get(PieceType.Location.toString()), instanceWhere);
 
             Individual instanceWhen = model.createIndividual(getSubNodeURL(Time.class), When.ToResource(model));
 
-            model.add(instance, RELS.get("when"), instanceWhen);
+            model.add(instance, RELS.get(PieceType.Time.toString()), instanceWhen);
 
             Individual instanceWhat = model.createIndividual(getSubNodeURL(MemoryObject.class), What.ToResource(model));
 
-            model.add(instance, RELS.get("object"), instanceWhat);
+            model.add(instance, RELS.get(PieceType.RelatedObjects.toString()), instanceWhat);
             return model;
         } catch (Exception e) {
             e.printStackTrace();

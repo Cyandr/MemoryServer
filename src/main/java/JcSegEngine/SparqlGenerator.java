@@ -20,10 +20,15 @@ public class SparqlGenerator {
         int result = Status & ModelSchema.ConsumeLexModel;
         List<PieceType> VarTypes=PieceType.findFromKnownInt(result,ModelSchema.ConsumeLexModel);
 
+
+        String sqlStr="SELECT ";
         List<String> Vars=new ArrayList<>();
         for (PieceType type: VarTypes) {
             Vars.add("?"+type.toString());
+            sqlStr+="?"+type.toString() +" ";
         }
+
+
 
         return null;
     }

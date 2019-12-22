@@ -1,6 +1,7 @@
 package MemoryWorld;
 
 
+import JcSegEngine.PieceType;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 
@@ -36,6 +37,11 @@ public class People extends BaseModel {
         });
 
         return resource;
+    }
+
+    @Override
+    public PieceType GetPieceType() {
+        return PieceType.People;
     }
 
 

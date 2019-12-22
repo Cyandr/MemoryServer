@@ -1,6 +1,7 @@
 package MemoryWorld;
 
 
+import JcSegEngine.PieceType;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 
@@ -26,5 +27,10 @@ public class Time extends BaseModel {
 
 
         return resource;
+    }
+
+    @Override
+    public PieceType GetPieceType() {
+        return PieceType.Time;
     }
 }
